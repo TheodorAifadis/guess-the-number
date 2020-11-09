@@ -2,6 +2,7 @@ let count = 0
 const guesses = []
 let randomNumber = randomInt(100)
 const resetButton = document.getElementsByTagName('button')[0]
+const highScoreTitle = document.getElementsByTagName('h1')[0]
 
 function randomInt(n){
     return Math.floor(Math.random() * n) + 1
@@ -20,6 +21,13 @@ document.addEventListener('keyup', function (event) {
         count++ 
         if (randomNumber === getUserGuess()){
             setMessage('Correct!     ' +  count + '     attempts')
+
+            if (!readResults() || readResults() > count) {
+                saveResults(count)
+            }
+
+            highScoreTitle.innerHTML = 'Highscore: ' + readResults()
+
         } else if (randomNumber > getUserGuess()) {
             setMessage('Too low!')
         } else if (randomNumber < getUserGuess()) {
@@ -39,4 +47,12 @@ function resetGame() {
     randomNumber = randomInt(100)
     document.getElementById('user-input').value = ''
     setMessage('Guess a number between 0 and 100')
+}
+
+function saveResults(x) {
+    localStorage.setItem('Highscore', x)
+}
+
+function readResults() {
+    return localStorage.getItem('Highscore')
 }

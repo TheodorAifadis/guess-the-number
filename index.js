@@ -3,10 +3,13 @@ const guesses = []
 let randomNumber = randomInt(100)
 const resetButton = document.getElementsByTagName('button')[0]
 const highScoreTitle = document.getElementsByTagName('h1')[0]
+const guessText = document.getElementsByTagName('p')[1]
 
 function randomInt(n){
     return Math.floor(Math.random() * n) + 1
 }
+
+highScoreTitle.innerHTML = 'Highscore: ' + readResults()
 
 function getUserGuess(){
     const stringValue = document.getElementById("user-input").value
@@ -17,8 +20,11 @@ resetButton.addEventListener('click', resetGame)
 
 document.addEventListener('keyup', function (event) {
     if (event.key === 'Enter') {
-        guesses.push(getUserGuess)
+        guesses.push(getUserGuess())
         count++ 
+
+        guessText.innerHTML = guesses
+
         if (randomNumber === getUserGuess()){
             setMessage('Correct!     ' +  count + '     attempts')
 
@@ -56,3 +62,4 @@ function saveResults(x) {
 function readResults() {
     return localStorage.getItem('Highscore')
 }
+

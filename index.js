@@ -20,8 +20,9 @@ resetButton.addEventListener('click', resetGame)
 
 document.addEventListener('keyup', function (event) {
     if (event.key === 'Enter') {
+
         guesses.push(getUserGuess())
-        count++ 
+        count++
 
         guessText.innerHTML = guesses
 
